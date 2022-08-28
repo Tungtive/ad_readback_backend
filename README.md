@@ -38,15 +38,17 @@ Source: [Damith Asanka Senanayake](https://findanexpert.unimelb.edu.au/profile/8
 #### **Environment Setup**
 Since we use docker container to run our code, so you need install Docker before run the project.<br><br>
 After you clone the repo and install the Docker, just run the code below at the root of the project.<br>
->docker-compose up # launches everything (database + flask)
-
+```bash
+docker-compose up # launches everything (database + flask)
+```
 Check if Flask is running by reaching localhost:5000 in your browser. And to check react, just by reaching localhost:3000 in your browser.<br>
 
 You can make some changes in the flask folder and after each save, the app will automatically detect the changes and reload (sometimes you'll need to refresh the webpage ...).
 
 To stop everything :
->docker-compose down # or crtl c ...
-
+```bash
+docker-compose down # or crtl c ...
+```
 
 <br>
 

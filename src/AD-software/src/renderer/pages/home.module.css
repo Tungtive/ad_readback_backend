@@ -1,0 +1,61 @@
+.box{
+	box-sizing: border-box;
+}
+.h3{
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+.headerBox{
+    height: 50px;
+    background: #1890ff;
+    color: white;
+	padding: 0 50px;
+}
+
+.headerCenter{
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerLeft{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	color: white;
+}
+
+.navItem{
+    margin-left: 50px;
+    cursor: pointer;
+	opacity: 0.7;
+}
+
+.navItemActive{
+	opacity: 1;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.navItem:hover{
+    text-decoration: underline;
+}
+
+.headerRight{
+    display: flex;
+    align-items: center;
+}
+
+.out{
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.logo{
+	width: 30px;
+	margin-right: 10px;
+}

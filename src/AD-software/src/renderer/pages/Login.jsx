@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import sty from './login.module.css';
+import React, { useEffect, useState } from "react";
+import { Form, Input, Button, Checkbox, message } from "antd";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import sty from "./login.module.css";
 
 export default function Login() {
   const [form] = Form.useForm();
   const [isLogin, setIsLogin] = useState(true);
 
-  const onFinish = (values) => {
-    if (isLogin) {
-      let { username, pwd, remember } = values;
-      navigate('/home');
-      message.success('Login succeeded!');
-    } else {
-      // 注册处理
-      message.success('Registration succeeded, please login!!');
-    }
-  };
+  const onFinish = (values) => {};
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   let navigate = useNavigate();
@@ -28,7 +19,7 @@ export default function Login() {
   return (
     <div className={sty.box}>
       <div className={sty.loginBox}>
-        <h1 className={sty.h1}>{isLogin ? 'Login' : 'Registration'}</h1>
+        <h1 className={sty.h1}>{isLogin ? "Login" : "Registration"}</h1>
         <Form
           form={form}
           name="basic"
@@ -43,7 +34,7 @@ export default function Login() {
             label="Username"
             name="username"
             rules={[
-              { required: true, message: ' Please enter your username!' },
+              { required: true, message: " Please enter your username!" },
             ]}
           >
             <Input id="usernameInput" />
@@ -55,7 +46,7 @@ export default function Login() {
             rules={[
               {
                 required: true,
-                message: 'Please enter your password!',
+                message: "Please enter your password!",
               },
             ]}
             hasFeedback
@@ -67,20 +58,20 @@ export default function Login() {
             <Form.Item
               name="confirmPwd"
               label="Confirm"
-              dependencies={['pwd']}
+              dependencies={["pwd"]}
               hasFeedback
               rules={[
                 {
                   required: true,
-                  message: 'Please confirm your password!',
+                  message: "Please confirm your password!",
                 },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue('pwd') === value) {
+                    if (!value || getFieldValue("pwd") === value) {
                       return Promise.resolve();
                     }
                     return Promise.reject(
-                      new Error('The two passwords entered are inconsistent!')
+                      new Error("The two passwords entered are inconsistent!")
                     );
                   },
                 }),
@@ -95,15 +86,15 @@ export default function Login() {
               label="Phone number"
               name="phone"
               rules={[
-                { required: true, message: 'Please enter your phone number!' },
+                { required: true, message: "Please enter your phone number!" },
                 {
                   validator(_, value) {
-                    const pattern = new RegExp('^1[34578][0-9]{9}$', 'i');
+                    const pattern = new RegExp("^1[34578][0-9]{9}$", "i");
                     if (pattern.test(value)) {
                       return Promise.resolve();
                     }
                     return Promise.reject(
-                      new Error('Please enter a legal phoen number!')
+                      new Error("Please enter a legal phoen number!")
                     );
                   },
                 },
@@ -118,8 +109,8 @@ export default function Login() {
               label="E-mail"
               name="mail"
               rules={[
-                { required: true, message: 'Please enter your E-mail!' },
-                { type: 'email', message: 'Please enter a legal E-mail!' },
+                { required: true, message: "Please enter your E-mail!" },
+                { type: "email", message: "Please enter a legal E-mail!" },
               ]}
             >
               <Input id="mail" />
@@ -138,40 +129,42 @@ export default function Login() {
 
           <div
             style={{
-              textAlign: 'center',
+              textAlign: "center",
             }}
           >
-            {' '}
+            {" "}
             <Button
               style={{
-                width: '50%',
+                width: "50%",
               }}
               type="primary"
               htmlType="submit"
               onClick={() => {
-                const url = 'https://localhost:8080';
+                const url = "http://192.168.1.106:3002/";
                 if (isLogin) {
                   const userName =
-                    document.getElementById('usernameInput').value;
-                  const pwd = document.getElementById('pwdInput').value;
+                    document.getElementById("usernameInput").value;
+                  const pwd = document.getElementById("pwdInput").value;
                   const params = { username: userName, password: pwd };
-
                   axios
-                    .post(url, params)
+                    .post(url.concat("auth/login"), params)
                     .then((response) => {
+                      console.log(response);
+                      navigate("/home");
+                      message.success("login success");
                       return response;
                     })
                     .catch((error) => {
-                      return error;
+                      message.warning("username or password error");
                     });
                 } else {
                   const userName =
-                    document.getElementById('usernameInput').value;
-                  const pwd = document.getElementById('pwdInput').value;
+                    document.getElementById("usernameInput").value;
+                  const pwd = document.getElementById("pwdInput").value;
                   const confirmPwd =
-                    document.getElementById('confirmPwd').value;
-                  const phone = document.getElementById('phone').value;
-                  const mail = document.getElementById('mail').value;
+                    document.getElementById("confirmPwd").value;
+                  const phone = document.getElementById("phone").value;
+                  const mail = document.getElementById("mail").value;
 
                   const params = {
                     username: userName,
@@ -179,10 +172,12 @@ export default function Login() {
                     phone_number: phone,
                     email: mail,
                   };
-
                   axios
-                    .post(url, params)
+                    .post(url.concat("users/register"), params)
                     .then((response) => {
+                      console.log(response);
+                      setIsLogin(!isLogin);
+                      message.success("register success");
                       return response;
                     })
                     .catch((error) => {
@@ -191,13 +186,13 @@ export default function Login() {
                 }
               }}
             >
-              {isLogin ? 'Login' : 'Registration'}
+              {isLogin ? "Login" : "Registration"}
             </Button>
           </div>
         </Form>
         <div
           style={{
-            textAlign: 'right',
+            textAlign: "right",
             marginTop: 30,
           }}
         >
@@ -211,8 +206,8 @@ export default function Login() {
             type="link"
           >
             {isLogin
-              ? 'No account yet? Register！'
-              : 'Already registered? Login!'}
+              ? "No account yet? Register！"
+              : "Already registered? Login!"}
           </Button>
         </div>
       </div>

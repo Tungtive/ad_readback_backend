@@ -67,6 +67,7 @@ export default function Login() {
             <Form.Item
               name="confirmPwd"
               label="Confirm"
+              id="confirmPwd"
               dependencies={['pwd']}
               hasFeedback
               rules={[
@@ -94,11 +95,12 @@ export default function Login() {
             <Form.Item
               label="Phone number"
               name="phone"
+              id="phone"
               rules={[
                 { required: true, message: 'Please enter your phone number!' },
                 {
                   validator(_, value) {
-                    let pattern = new RegExp('^1[34578][0-9]{9}$', 'i');
+                    const pattern = new RegExp('^1[34578][0-9]{9}$', 'i');
                     if (pattern.test(value)) {
                       return Promise.resolve();
                     }
@@ -117,6 +119,7 @@ export default function Login() {
             <Form.Item
               label="E-mail"
               name="mail"
+              id="mail"
               rules={[
                 { required: true, message: 'Please enter your E-mail!' },
                 { type: 'email', message: 'Please enter a legal E-mail!' },
@@ -149,19 +152,46 @@ export default function Login() {
               type="primary"
               htmlType="submit"
               onClick={() => {
-                const url = 'https://localhost:3002';
-                const userName = document.getElementById('usernameInput').value;
-                const pwd = document.getElementById('pwdInput').value;
-                const params = { username: userName, password: pwd };
-                
-                axios
-                  .get(url, params)
-                  .then((response) => {
-                    return response;
-                  })
-                  .catch((error) => {
-                    return error;
-                  });
+                const url = 'https://localhost:8080';
+                if (isLogin) {
+                  const userName =
+                    document.getElementById('usernameInput').value;
+                  const pwd = document.getElementById('pwdInput').value;
+                  const params = { username: userName, password: pwd };
+
+                  axios
+                    .get(url, params)
+                    .then((response) => {
+                      return response;
+                    })
+                    .catch((error) => {
+                      return error;
+                    });
+                } else {
+                  const userName =
+                    document.getElementById('usernameInput').value;
+                  const pwd = document.getElementById('pwdInput').value;
+                  const confirmPwd =
+                    document.getElementById('confirmPwd').value;
+                  const phone = document.getElementById('phone').value;
+                  const mail = document.getElementById('mail').value;
+
+                  const params = {
+                    username: userName,
+                    password: pwd,
+                    phone_number: phone,
+                    email: mail,
+                  };
+
+                  axios
+                    .get(url, params)
+                    .then((response) => {
+                      return response;
+                    })
+                    .catch((error) => {
+                      return error;
+                    });
+                }
               }}
             >
               {isLogin ? 'Login' : 'Registration'}

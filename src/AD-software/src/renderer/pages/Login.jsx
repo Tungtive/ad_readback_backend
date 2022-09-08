@@ -153,8 +153,7 @@ export default function Login() {
                 const userName = document.getElementById('usernameInput').value;
                 const pwd = document.getElementById('pwdInput').value;
                 const params = { username: userName, password: pwd };
-                console.log(axios);
-
+                
                 axios
                   .get(url, params)
                   .then((response) => {

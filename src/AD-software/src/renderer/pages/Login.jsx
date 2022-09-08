@@ -67,7 +67,6 @@ export default function Login() {
             <Form.Item
               name="confirmPwd"
               label="Confirm"
-              id="confirmPwd"
               dependencies={['pwd']}
               hasFeedback
               rules={[
@@ -87,7 +86,7 @@ export default function Login() {
                 }),
               ]}
             >
-              <Input.Password />
+              <Input.Password id="confirmPwd" />
             </Form.Item>
           )}
 
@@ -95,7 +94,6 @@ export default function Login() {
             <Form.Item
               label="Phone number"
               name="phone"
-              id="phone"
               rules={[
                 { required: true, message: 'Please enter your phone number!' },
                 {
@@ -111,7 +109,7 @@ export default function Login() {
                 },
               ]}
             >
-              <Input />
+              <Input id="phone" />
             </Form.Item>
           )}
 
@@ -119,13 +117,12 @@ export default function Login() {
             <Form.Item
               label="E-mail"
               name="mail"
-              id="mail"
               rules={[
                 { required: true, message: 'Please enter your E-mail!' },
                 { type: 'email', message: 'Please enter a legal E-mail!' },
               ]}
             >
-              <Input />
+              <Input id="mail" />
             </Form.Item>
           )}
 
@@ -160,7 +157,7 @@ export default function Login() {
                   const params = { username: userName, password: pwd };
 
                   axios
-                    .get(url, params)
+                    .post(url, params)
                     .then((response) => {
                       return response;
                     })
@@ -184,7 +181,7 @@ export default function Login() {
                   };
 
                   axios
-                    .get(url, params)
+                    .post(url, params)
                     .then((response) => {
                       return response;
                     })

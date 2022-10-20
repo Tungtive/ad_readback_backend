@@ -1,12 +1,12 @@
 import datetime
 from sys import stdout
 from xml.dom import UserDataHandler
-from flask_restx import Namespace, Resource
+
 from flask import jsonify, request
+# from flask_jwt_extended import create_access_token, current_user, jwt_required
+from flask_restx import Namespace, Resource
 
-from .model import User,  check_password, get_hashed_password
-from flask_jwt_extended import create_access_token, current_user, jwt_required
-
+from .model import User
 
 api = Namespace('users',description="users related api")
 
@@ -75,4 +75,5 @@ class Login(Resource):
         #     identity=user.name, expires_delta=datetime.timedelta(days=30)
         # )
         return {"user": user.to_dict(),"login":"ok"}, 201
+
 

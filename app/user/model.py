@@ -1,27 +1,23 @@
-from typing import Dict
-
-from flask_mongoengine import Document
-
-from mongoengine.fields import (
-    StringField
-)
-
-import bcrypt
 import base64
 import hashlib
+from typing import Dict
 
-def get_hashed_password(plain_text_password):
-    return bcrypt.hashpw(
-        base64.b64encode(hashlib.sha256(plain_text_password.encode("utf-8")).digest()),
-        bcrypt.gensalt(),
-    ).decode("utf8")
+# import bcrypt
+from flask_mongoengine import Document
+from mongoengine.fields import StringField
+
+# def get_hashed_password(plain_text_password):
+#     return bcrypt.hashpw(
+#         base64.b64encode(hashlib.sha256(plain_text_password.encode("utf-8")).digest()),
+#         bcrypt.gensalt(),
+#     ).decode("utf8")
 
 
-def check_password(plain_text_password, hashed_password):
-    return bcrypt.checkpw(
-        base64.b64encode(hashlib.sha256(plain_text_password.encode("utf-8")).digest()),
-        hashed_password.encode("utf8"),
-    )
+# def check_password(plain_text_password, hashed_password):
+#     return bcrypt.checkpw(
+#         base64.b64encode(hashlib.sha256(plain_text_password.encode("utf-8")).digest()),
+#         hashed_password.encode("utf8"),
+#     )
 
 
 class User(Document):

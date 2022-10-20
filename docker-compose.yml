@@ -3,23 +3,10 @@ services:
   backend:
     image: adredback
     restart: always
-    env_file: env/.env.docker
+    env_file: env/.env.prod
     build: ./
     ports:
       - 3000:3000
     command: gunicorn --worker-class gevent --bind 0.0.0.0:3000 wsgi:app --log-level debug
-    depends_on:
-      - mongo
-
-  
-  mongo:
-    image: mongo:latest
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-    ports:
-       - 27017:27017
     volumes:
-       - ./data/mongo:/data/db
-    command: mongod
+      - $HOME/.aws/credentials:/root/.aws/credentials:ro
